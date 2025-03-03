@@ -4,12 +4,16 @@ const cors = require("cors");
 const multer = require("multer");
 
 const app = express();
-const port = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
 
 const upload = multer({ dest: "uploads/" });
+
+app.get("/", (req, res) => {
+  res.send("Servidor funcionando!");
+});
 
 app.post("/scan", upload.single("file"), async (req, res) => {
   try {
@@ -53,6 +57,6 @@ app.get("/analysis/:id", async (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`Servidor en ejecución en http://localhost:${port}`);
+app.listen(PORT, () => {
+  console.log(`Servidor en ejecución en http://localhost:${PORT}`);
 });
